@@ -7,7 +7,7 @@ class MqttClient():
   def __init__(self):
       self.connected = False
       self.broker = "Belum Terkoneksi"
-      self.topik = "rafly/fpto"
+      self.topik = "rafly/foto"
   
   def connectTo(self, broker: str, port=1883, timeout=60):
       # Create an MQTT client object
