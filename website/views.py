@@ -52,6 +52,6 @@ def door():
         return redirect(url_for('views.dashboard'))
       else:
         # jika tidak tampilkan alert
-        flash("Broker ataupun Topiknya tidak ditemukan")
+        flash("Broker tidak ditemukan")
 
   return render_template('door.html')
