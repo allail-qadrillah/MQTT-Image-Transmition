@@ -45,9 +45,8 @@ def history():
 def door():
   if request.method == 'POST':
       broker = request.form['broker']
-      topic = request.form['topik']
 
-      client.connectTo(broker=broker, topic=topic)
+      client.connectTo(broker=broker)
       if client.connected:
         # jika berhasil connect pergi ke /user
         return redirect(url_for('views.dashboard'))

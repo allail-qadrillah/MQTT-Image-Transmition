@@ -7,9 +7,9 @@ class MqttClient():
   def __init__(self):
       self.connected = False
       self.broker = "Belum Terkoneksi"
-      self.topik = " "
+      self.topik = "rafly/fpto"
   
-  def connectTo(self, broker: str, topic: str, port=1883, timeout=60):
+  def connectTo(self, broker: str, port=1883, timeout=60):
       # Create an MQTT client object
       client = mqtt.Client()
 
@@ -22,14 +22,13 @@ class MqttClient():
         client.connect(broker, port, timeout)
         self.connected = True
         self.broker = broker
-        self.topik = topic
       except:
         print("Error connecting to Broker")
         self.connected = False
         pass
 
       # Subscribe to a topic
-      client.subscribe(topic)
+      client.subscribe(self.topik)
       # Start the MQTT client loop in a new thread
       t = threading.Thread(target=client.loop_forever)
       t.start()
