@@ -6,6 +6,8 @@ import base64
 class MqttClient():
   def __init__(self):
       self.connected = False
+      self.broker = "Belum Terkoneksi"
+      self.topik = " "
   
   def connectTo(self, broker: str, topic: str, port=1883, timeout=60):
       # Create an MQTT client object
@@ -19,6 +21,8 @@ class MqttClient():
       # Connect to the broker
         client.connect(broker, port, timeout)
         self.connected = True
+        self.broker = broker
+        self.topik = topic
       except:
         print("Error connecting to Broker")
         self.connected = False
@@ -53,10 +57,11 @@ class MqttClient():
   def get_filename(self):
     now = datetime.datetime.now()
     return now.strftime("%Y-%m-%d-%H-%M-%S") + ".jpg"
+  
+  def split_string(self, string:str):
+    # memisahkan string menjadi bagian-bagian tanggal, jam, menit, dan detik
+    tahun, bulan, tanggal, jam, menit, detik = string.split("-")
+    # menggabungkan bagian-bagian tanggal, jam, dan menit dengan format yang diinginkan
+    return f"{jam}:{menit}/{tanggal}-{bulan}-{tahun}"
 
-
-# client = MqttClient()
-# print(client.connected)
-# client.connectTo(broker="broker.emqx.io", topic="python/mqtt")
-# print(client.connected)
 

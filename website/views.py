@@ -10,17 +10,34 @@ client = MqttClient()
 @views.route('/user', methods=['POST', 'GET'])
 def dashboard():
   
+  list_gambar = os.listdir("website/static/img/history")
+  list_gambar.sort(reverse=True)
+  
   image = {
-    'image_name': 'uji coba gambar',
-    'image_path': 'static/img/history/history_1.png'
+      'image_name': client.split_string(list_gambar[0]),
+    'image_path': 'static/img/history/'+list_gambar[0]
   }
 
-  return render_template('index.html', item=image)
+  return render_template('index.html', 
+                          item=image,
+                          broker = client.broker,
+                          topik = client.topik
+                        )
 
 """                                        HISTORY                                              """
 @views.route('/history', methods=['POST', 'GET'])
 def history():
-  history = []
+  
+  list_gambar = os.listdir("website/static/img/history")
+  list_gambar.sort(reverse=True)
+
+  history = [ 
+        {
+            "image_path": "static/img/history/" + item,
+            "image_name": client.split_string(item)
+        }
+        for item in list_gambar 
+    ]
 
   return render_template('history.html', history=history)
 
