@@ -15,13 +15,13 @@ def dashboard():
   
   image = {
       'image_name': client.split_string(list_gambar[0]),
-    'image_path': 'static/img/history/'+list_gambar[0]
+      'image_path': 'static/img/history/'+list_gambar[0]
   }
 
   return render_template('index.html', 
                           item=image,
                           broker = client.broker,
-                          topik = client.topik
+                          status = client.connected
                         )
 
 """                                        HISTORY                                              """
@@ -45,8 +45,10 @@ def history():
 def door():
   if request.method == 'POST':
       broker = request.form['broker']
+      port = request.form['port']
+      timeout = request.form['timeout']
 
-      client.connectTo(broker=broker)
+      client.connectTo(broker=broker, port=int(port), timeout=int(timeout))
       if client.connected:
         # jika berhasil connect pergi ke /user
         return redirect(url_for('views.dashboard'))

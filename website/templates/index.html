@@ -22,11 +22,11 @@
           class="rounded-circle" />
 
         <div class="d-flex flex-column ms-2">
-          <p class="fw-bold mb-1 mt-2 fs-5">{{ broker }}</p>
-          {% if topik == " " %}
-            <a href="/" id="status" class="badge badge-primary">klik untuk mengoneksikan</a>
+          <p class="fw-bold mb-1 mt-2 fs-5">Smart Door View</p>
+          {% if status == True %}
+            <a href="/" id="status" class="badge badge-primary">Terhubung</a>
           {% else %}
-            <a href="/" id="status" class="badge badge-primary">{{ topik }}</a>
+            <a href="/" id="status" class="badge badge-warning">klik untuk menghubungkan</a>
           {% endif %}
         </div>
 

@@ -9,7 +9,7 @@ class MqttClient():
       self.broker = "Belum Terkoneksi"
       self.topik = "rafly/foto"
   
-  def connectTo(self, broker: str, port=1883, timeout=60):
+  def connectTo(self, broker: str, port:int, timeout=60):
       # Create an MQTT client object
       client = mqtt.Client()
 
@@ -60,7 +60,16 @@ class MqttClient():
   def split_string(self, string:str):
     # memisahkan string menjadi bagian-bagian tanggal, jam, menit, dan detik
     tahun, bulan, tanggal, jam, menit, detik = string.split("-")
+
+    date_obj = datetime.datetime.strptime(f"{tanggal}-{bulan}-{tahun}", "%d-%m-%Y")
+    day_name = date_obj.strftime("%A")
+
+    print(day_name)
     # menggabungkan bagian-bagian tanggal, jam, dan menit dengan format yang diinginkan
-    return f"{jam}:{menit}/{tanggal}-{bulan}-{tahun}"
+    return f"{day_name}/{tanggal}-{bulan}-{tahun}/{jam}:{menit}"
 
 
+# broker : broker.emqx.io
+# topik :  python/mqtt
+# port : 1883
+# timeout : 60
